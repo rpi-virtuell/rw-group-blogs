@@ -12,14 +12,13 @@
  * Plugin Name:       RW Group Blogs
  * Plugin URI:        https://github.com/rpi-virtuell/rw-group-blogs
  * Description:       A plugin to add blog rss to groups
- * Version:           0.0.1
+ * Version:           0.0.2
  * Author:            Frank Staude
  * Author URI:        https://staude.net
  * License:           GNU General Public License v2
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
  * Domain Path:       /languages
  * Text Domain:       rw-group-blogs
- * Network:           true
  * GitHub Plugin URI: https://github.com/rpi-virtuell/rw-group-blogs
  * GitHub Branch:     master
  * Requires WP:       4.0
@@ -34,7 +33,7 @@ class RW_Group_Blogs {
      * @since   0.0.1
      * @access  public
      */
-    static public $version = "0.0.1";
+    static public $version = "0.0.2";
 
     /**
      * Singleton object holder
@@ -96,6 +95,11 @@ class RW_Group_Blogs {
      * @action  rw_group_blog_init
      */
     public function __construct () {
+
+        if ( ! function_exists( 'bp_register_group_extension' ) ) {
+            // @todo Hinweis da BuddyPress Activity aktiv sein muss.
+            return false;
+        }
         // set the textdomain variable
         self::$textdomain = self::get_textdomain();
 
