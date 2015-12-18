@@ -5,6 +5,10 @@
  *
  * Contains some helper code for plugin installation
  *
+ * @package   RW Group Blogs
+ * @author    Frank Staude
+ * @license   GPL-2.0+
+ * @link      https://github.com/rpi-virtuell/rw-group-blogs
  */
 
 class RW_Group_Blogs_Installation {
@@ -42,6 +46,8 @@ class RW_Group_Blogs_Installation {
             )
             );
         }
+
+        wp_schedule_event( time(), 'hourly', 'rw_group_blogs_cron' );
     }
 
     /**
@@ -55,7 +61,8 @@ class RW_Group_Blogs_Installation {
      * @return  void
      */
     public static function on_deactivation() {
-
+        wp_clear_scheduled_hook( 'rw_group_blogs_cron' );
+        bp_activity_delete( array( 'type' => RW_Group_Blogs_Core::$activity_type ) );
     }
 
     /**
@@ -71,6 +78,6 @@ class RW_Group_Blogs_Installation {
      *
      */
     public static function on_uninstall() {
-
+        // @todo cleanup group neta
     }
 }

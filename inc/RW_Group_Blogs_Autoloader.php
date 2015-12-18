@@ -4,6 +4,10 @@
  *
  * Autoloader for the plugin
  *
+ * @package   RW Group Blogs
+ * @author    Frank Staude
+ * @license   GPL-2.0+
+ * @link      https://github.com/rpi-virtuell/rw-group-blogs
  */
 
 class RW_Group_Blogs_Autoloader {
@@ -24,7 +28,7 @@ class RW_Group_Blogs_Autoloader {
     /**
      * Unregisters autoloader function with spl_autoload
      *
-     * @ince    0.0.1
+     * @since    0.0.1
      * @access  public
      * @static
      * @action  rw_site_config_autoload_unregister
