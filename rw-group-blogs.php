@@ -115,12 +115,6 @@ class RW_Group_Blogs {
         add_action( 'plugins_loaded', array( 'RW_Group_Blogs', 'load_plugin_textdomain' ) );
         add_action( 'bp_init',        array( 'RW_Group_Blogs_Core', 'init' ) );
 
-//        add_action( 'admin_init',           array( 'RW_Site_Config_Options', 'register_settings' ));
-//        add_action( 'network_admin_menu',   array( 'RW_Site_Config_Options', 'options_menu' ) );
-//        add_action( 'admin_post_update_rw_site_config_settings',  array( 'RW_Site_Config_Options', 'update_settings' ) );
-//        add_action( 'wpmu_new_blog', array( 'RW_Site_Config_Core', 'site_created' ),10, 6 );
-//        add_filter( 'network_admin_plugin_action_links_' . self::$plugin_base_name, array( 'RW_Site_Config_Options', 'plugin_settings_link') );
-
         do_action( 'rw_group_blogs_init' );
     }
 
