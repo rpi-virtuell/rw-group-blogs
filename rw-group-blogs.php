@@ -12,7 +12,7 @@
  * Plugin Name:       RW Group Blogs
  * Plugin URI:        https://github.com/rpi-virtuell/rw-group-blogs
  * Description:       A plugin to add blog rss to groups
- * Version:           0.0.2
+ * Version:           0.0.3
  * Author:            Frank Staude
  * Author URI:        https://staude.net
  * License:           GNU General Public License v2
@@ -33,7 +33,7 @@ class RW_Group_Blogs {
      * @since   0.0.1
      * @access  public
      */
-    static public $version = "0.0.2";
+    static public $version = "0.0.3";
 
     /**
      * Singleton object holder

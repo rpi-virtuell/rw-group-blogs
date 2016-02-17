@@ -243,7 +243,7 @@ class RW_Group_Blogs_Core {
 
         $group_ids = $wpdb->get_col( $wpdb->prepare( "SELECT group_id FROM " . $bp->groups->table_name_groupmeta . " WHERE meta_key = 'rw-group-blogs-feeds'" ) );
         foreach( $group_ids as $group_id ) {
-            RW_Group_Blogs_Core::fetch_group_feed($group_id);
+            RW_Group_Blogs_Core::fetch_group_feeds($group_id);
         }
     }
 
