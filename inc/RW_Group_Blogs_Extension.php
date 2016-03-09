@@ -119,6 +119,15 @@ if ( class_exists('BP_Group_Extension' ) ) {
                 return false;
             }
 
+            $url = bp_get_root_domain();
+            $group = groups_get_current_group();
+            $configstr = base64_encode( json_encode( array( 'group_id' => $group->id, 'url' => $url ) ) );
+
+            ?>
+            <p><label for"configstr"><?php _e("Config to invite groupmember to blog.",  RW_Group_Blogs::$textdomain ); ?></label>
+            <input id="configstr" type="text" value="<?php echo $configstr; ?>"></p>
+            <?php
+
             $meta = groups_get_groupmeta( $bp->groups->current_group->id, 'rw-group-blogs-fetchtime');
             $fetch = ! empty( $meta ) ? $meta : '30';
             $times = array('10', '15', '20', '30', '60');
