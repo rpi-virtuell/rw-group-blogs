@@ -10,13 +10,16 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 
 == Description ==
-A plugin to activate plugins and set optons automaticly on new sites
+
+A plugin to add blog rss to groups
 
 == Hooks ==
 
 = Filter =
 
 rw_group_blogs_translationpath
+
+rw_group_blogs_server_cmd_parser
 
 = Actions =
 
@@ -46,6 +49,13 @@ Answer
 
 
 == Changelog ==
+
+= 0.0.5 =
+* add add_activity command
+
+= 0.0.4 =
+* add configstring for group/blog connectivity
+* add API for comunication from blogserver
 
 = 0.0.3 =
 * typo in functionname
