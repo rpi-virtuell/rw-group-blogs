@@ -33,7 +33,7 @@ class RW_Group_Blogs {
      * @since   0.0.1
      * @access  public
      */
-    static public $version = "0.0.4";
+    static public $version = "0.0.5";
 
     /**
      * Singleton object holder
@@ -124,6 +124,7 @@ class RW_Group_Blogs {
         add_filter( 'query_vars',                       array( 'RW_Group_Blogs_Server_API', 'add_query_vars') );
         add_filter( 'rw_group_blogs_server_cmd_parser',  array( 'RW_Group_Blogs_Server_API', 'cmd_list_profiles' ) );
         add_filter( 'rw_group_blogs_server_cmd_parser',  array( 'RW_Group_Blogs_Server_API', 'cmd_add_blog' ) );
+        add_filter( 'rw_group_blogs_server_cmd_parser',  array( 'RW_Group_Blogs_Server_API', 'cmd_add_activity' ) );
         do_action( 'rw_group_blogs_init' );
     }
 

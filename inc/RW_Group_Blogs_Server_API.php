@@ -93,7 +93,7 @@ class RW_Group_Blogs_Server_API {
         if ( ! isset( $wp_query->query_vars['rwgroupinfo'] ) )
             return;
 
-        RW_Blog_Group_Server_API::handle_request();
+        RW_Group_Blogs_Server_API::handle_request();
         exit;
 
     }
@@ -103,7 +103,6 @@ class RW_Group_Blogs_Server_API {
      * @since   0.0.4
      * @access  public
      * @static
-     * @hook    rw_remote_auth_server_cmd_parser
      * @param $request
      * @return mixed
      */
@@ -120,7 +119,6 @@ class RW_Group_Blogs_Server_API {
      * @since   0.0.4
      * @access  public
      * @static
-     * @hook    rw_remote_auth_server_cmd_parser
      * @param $request
      * @return mixed
      */
@@ -130,6 +128,75 @@ class RW_Group_Blogs_Server_API {
             self::send_response( $answer );
         }
         return $request;
+    }
+
+
+    /**
+     *
+     * @since   0.0.5
+     * @access  public
+     * @static
+     * @param $request
+     * @return mixed
+     */
+    static public function cmd_add_activity( $request ) {
+        if ( 'add_activity' == $request[ 'cmd' ] ) {
+            $answer = self::add_activity( $request[ 'data' ] );
+            self::send_response( $answer );
+        }
+        return $request;
+    }
+
+    /**
+     *
+     * @since   0.0.5
+     * @access  public
+     * @static
+     * @param $args
+     * @return mixed
+     */
+    static public function add_activity( $args ) {
+        $defaults = array(
+            'id' => NULL,
+            'user' => false,  // username, to check if user is member of group
+            'user_id' => false, // false or true to show user in activity
+            'action' => '',
+            'content' => '',
+            'primary_link' => '',
+            'type' => RW_Group_Blogs_Core::$activity_type,
+            'item_id' => '',  // GroupID
+            'secondary_item_id' => '',
+            'recorded_time' => gmdate("Y-m-d H:i:s"),
+            'hide_sitewide' => true
+        );
+        $args = wp_parse_args( $args, $defaults );
+
+        $userdata = get_user_by( 'login', $args[ 'user' ] );
+        if ( groups_is_user_member( $userdata->ID, $args[ 'item_id' ] ) ) {
+
+            // Add new record
+            $back = groups_record_activity(array(
+                'id' => $args['id'],
+                'user_id' => $args['user_id'],
+                'action' => $args['action'],
+                'content' => $args['content'],
+                'primary_link' => $args['primary_link'],
+                'type' => $args['type'],
+                'item_id' => $args['item_id'],
+                'secondary_item_id' => $args['secondary_item_id'],
+                'recorded_time' => $args['recorded_time'],
+                'hide_sitewide' => $args['hide_sitewide'],
+            ));
+
+            if ($back === false) {
+                $ret = array('errors' => 406, 'message' => 'Activity not created');
+            } else {
+                $ret = array('message' => "ok");
+            }
+        } else {
+            $ret = array('errors' => 403, 'message' => 'Activity not created');
+        }
+        return $ret;
     }
 
     /**
@@ -151,7 +218,7 @@ class RW_Group_Blogs_Server_API {
             $back = array( 'errors' => 406, 'message' => 'Group Blogs component not active' );
         }
 
-        return $back;;
+        return $back;
     }
 
 
