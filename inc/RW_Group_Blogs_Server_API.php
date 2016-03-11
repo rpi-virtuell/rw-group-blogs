@@ -173,7 +173,9 @@ class RW_Group_Blogs_Server_API {
 
         $userdata = get_user_by( 'login', $args[ 'user' ] );
         if ( groups_is_user_member( $userdata->ID, $args[ 'item_id' ] ) ) {
-
+            if ( $args[ 'user_id' ] !== false ) {
+                $args[ 'user_id' ] = $userdata->ID;
+            }
             // Add new record
             $back = groups_record_activity(array(
                 'id' => $args['id'],
