@@ -43,7 +43,7 @@ if ( class_exists('BP_Group_Extension' ) ) {
          * @static
          * @return bool
          */
-        function create_screen()
+        function create_screen($group_id = NULL )
         {
             global $bp;
             if ( ! bp_is_group_creation_step( $this->slug ) ) {
@@ -85,7 +85,7 @@ if ( class_exists('BP_Group_Extension' ) ) {
          * @access  public
          * @static
          */
-        function create_screen_save()
+        function create_screen_save($group_id = NULL)
         {
             global $bp;
 
@@ -111,7 +111,7 @@ if ( class_exists('BP_Group_Extension' ) ) {
          * @static
          * @return bool
          */
-        function edit_screen()
+        function edit_screen($group_id = NULL)
         {
             global $bp;
 
@@ -163,7 +163,7 @@ if ( class_exists('BP_Group_Extension' ) ) {
          * @static
          * @return bool
          */
-        function edit_screen_save()
+        function edit_screen_save($group_id = NULL)
         {
             global $bp;
 
@@ -213,7 +213,7 @@ if ( class_exists('BP_Group_Extension' ) ) {
          * @access  public
          * @static
          */
-        function display()
+        function display($group_id = NULL)
         {
         }
 
