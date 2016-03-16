@@ -127,6 +127,7 @@ if ( class_exists('BP_Group_Extension' ) ) {
             <p><label for"configstr"><?php _e("Config to invite groupmember to blog.",  RW_Group_Blogs::$textdomain ); ?></label>
             <input id="configstr" type="text" value="<?php echo $configstr; ?>"></p>
             <?php
+            $options = groups_get_groupmeta( $group->id, 'rw-group-blogs-blogdata' );
 
             $meta = groups_get_groupmeta( $bp->groups->current_group->id, 'rw-group-blogs-fetchtime');
             $fetch = ! empty( $meta ) ? $meta : '30';

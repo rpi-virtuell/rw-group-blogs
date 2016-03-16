@@ -124,7 +124,7 @@ class RW_Group_Blogs_Server_API {
      */
     static public function cmd_add_blog( $request ) {
         if ( 'add_blog' == $request[ 'cmd' ] ) {
-            $answer = self::add_blog( $request[ 'data' ][ 'feed_url' ], $request[ 'data' ][ 'group_id' ] );
+            $answer = self::add_blog( $request[ 'data' ] );
             self::send_response( $answer );
         }
         return $request;
@@ -206,20 +206,28 @@ class RW_Group_Blogs_Server_API {
      * @since   0.0.4
      * @access  public
      * @static
-     * @param
+     * @param   $data
      * @return mixed
      */
-    static public function add_blog( $feed_url, $group_id  ) {
-        if ( class_exists( 'RW_Group_Blogs_Core' ) ) {
-            groups_update_groupmeta( $group_id, 'rw-group-blogs-fetchtime',"15" );
-            groups_update_groupmeta( $group_id, 'rw-group-blogs-feeds', $feed_url );
-            groups_update_groupmeta( $group_id, 'rw-group-blogs-lastupdate', gmdate( "Y-m-d H:i:s" ) );
-            RW_Group_Blogs_Core::fetch_group_feeds( $group_id );
-            $back = array( 'message' => "ok");
+    static public function add_blog( $data ) {
+        $data[ 'group_info'] == 0;
+        $options = groups_get_groupmeta($data[ 'group_id'], 'rw-group-blogs-blogdata' );
+        if ( is_array( $options ) ) {
+            $options[] = $data;
         } else {
-            $back = array( 'errors' => 406, 'message' => 'Group Blogs component not active' );
+            $options = array();
+            $options[] = $data;
         }
+        groups_update_groupmeta( $data [ 'group_id' ], 'rw-group-blogs-blogdata', $options );
 
+        groups_update_groupmeta( $data [ 'group_id' ], 'rw-group-blogs-fetchtime',"15" );
+        $feed = groups_get_groupmeta($data[ 'group_id'], 'rw-group-blogs-feeds' );
+        $feed .= "\n" . $data[ 'feed_url' ];
+        groups_update_groupmeta( $data [ 'group_id' ], 'rw-group-blogs-feeds', $feed );
+        groups_update_groupmeta( $data [ 'group_id' ], 'rw-group-blogs-lastupdate', gmdate( "Y-m-d H:i:s" ) );
+        RW_Group_Blogs_Core::fetch_group_feeds( $data [ 'group_id' ] );
+
+        $back = array( 'message' => "ok");
         return $back;
     }
 
