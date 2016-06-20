@@ -13,3 +13,5 @@ wp-content/uploads/
 wp-content/wp-cache-config.php
 ._.DS_Store
 .DS_Store
+.idea/
+.idea/vcs.xml
