@@ -241,7 +241,7 @@ class RW_Group_Blogs_Core {
     function cron_refresh() {
         global $bp, $wpdb;
 
-        $group_ids = $wpdb->get_col( $wpdb->prepare( "SELECT group_id FROM " . $bp->groups->table_name_groupmeta . " WHERE meta_key = 'rw-group-blogs-feeds'" ) );
+        $group_ids = $wpdb->get_col( $wpdb->prepare( "SELECT group_id FROM " . $bp->groups->table_name_groupmeta . " WHERE meta_key = %s", 'rw-group-blogs-feeds') );
         foreach( $group_ids as $group_id ) {
             RW_Group_Blogs_Core::fetch_group_feeds($group_id);
         }
